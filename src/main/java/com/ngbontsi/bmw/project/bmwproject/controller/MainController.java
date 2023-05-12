@@ -1,6 +1,7 @@
 package com.ngbontsi.bmw.project.bmwproject.controller;
 
 
+import com.ngbontsi.bmw.project.bmwproject.errohandling.InvalidRequestException;
 import com.ngbontsi.bmw.project.bmwproject.model.Vehicle;
 import com.ngbontsi.bmw.project.bmwproject.repository.VehicleRepository;
 import jakarta.persistence.GenerationType;
@@ -40,7 +41,11 @@ public class MainController {
 
     @DeleteMapping("/vehicle/{id}")
     public void deleteVehicle(@PathVariable long id) {
-        vehicleRepository.deleteById(id);
+        if (!vehicleRepository.findById(id).isEmpty()) {
+
+            vehicleRepository.deleteById(id);
+        }
+
     }
 
     @PostMapping("/vehicle")
@@ -54,7 +59,11 @@ public class MainController {
 
     }
     @PutMapping("/vehicle/{id}")
-    public ResponseEntity<Object> updateStudent(@RequestBody Vehicle vehicle, @PathVariable long id) {
+    public ResponseEntity<Object> updateVehicle(@RequestBody Vehicle vehicle, @PathVariable long id) {
+
+        if (vehicle == null || vehicle.getVehicle_id()== null) {
+            throw new InvalidRequestException("Vehicle or ID cannot be null!");
+        }
 
         Optional<Vehicle> studentOptional = vehicleRepository.findById(id);
 

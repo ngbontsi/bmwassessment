@@ -1,13 +1,17 @@
 package com.ngbontsi.bmw.project.bmwproject.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Table(name = "vehicle")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Vehicle {
 
     @Id
